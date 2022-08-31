@@ -2,10 +2,6 @@
 
 use Illuminate\Support\Str;
 
-$DATABASE_URL = parse_url(' postgres://rszonhwjrhtywd:3eab66097dcbcad3e0148aa5df3e5d9d48c2f1b18aa90d0f05a9e42d4bd91e3a@ec2-35-168-122-84.compute-1.amazonaws.com:5432/d9agmbapl000oe
-');
-
-
 return [
 
     /*
@@ -19,8 +15,8 @@ return [
     |
     */
 
-    //    'default' => env('DB_CONNECTION', 'mysql'),
-    'default' => env('DB_CONNECTION', 'pgsql'),
+    'default' => env('DB_CONNECTION', 'mysql'),
+
     /*
     |--------------------------------------------------------------------------
     | Database Connections
@@ -67,32 +63,19 @@ return [
             ]) : [],
         ],
 
-        //        'pgsql' => [
-        //            'driver' => 'pgsql',
-        //            'url' => env('DATABASE_URL'),
-        //            'host' => env('DB_HOST', '127.0.0.1'),
-        //            'port' => env('DB_PORT', '5432'),
-        //            'database' => env('DB_DATABASE', 'forge'),
-        //            'username' => env('DB_USERNAME', 'forge'),
-        //            'password' => env('DB_PASSWORD', ''),
-        //            'charset' => 'utf8',
-        //            'prefix' => '',
-        //            'prefix_indexes' => true,
-        //            'schema' => 'public',
-        //            'sslmode' => 'prefer',
-        //        ],
-
         'pgsql' => [
             'driver' => 'pgsql',
-            'host' => $DATABASE_URL["host"],
-            'port' => $DATABASE_URL["port"],
-            'database' => ltrim($DATABASE_URL["path"], "/"),
-            'username' => $DATABASE_URL["user"],
-            'password' => $DATABASE_URL["pass"],
+            'url' => env('DATABASE_URL'),
+            'host' => env('DB_HOST', '127.0.0.1'),
+            'port' => env('DB_PORT', '5432'),
+            'database' => env('DB_DATABASE', 'forge'),
+            'username' => env('DB_USERNAME', 'forge'),
+            'password' => env('DB_PASSWORD', ''),
             'charset' => 'utf8',
             'prefix' => '',
-            'schema' => 'public',
-            'sslmode' => 'require',
+            'prefix_indexes' => true,
+            'search_path' => 'public',
+            'sslmode' => 'prefer',
         ],
 
         'sqlsrv' => [
@@ -106,6 +89,8 @@ return [
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
+            // 'encrypt' => env('DB_ENCRYPT', 'yes'),
+            // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
         ],
 
     ],
@@ -133,46 +118,34 @@ return [
     | such as APC or Memcached. Laravel makes it easy to dig right in.
     |
     */
-    //
-    //    'redis' => [
-    //
-    //        'client' => env('REDIS_CLIENT', 'phpredis'),
-    //
-    //        'options' => [
-    //            'cluster' => env('REDIS_CLUSTER', 'redis'),
-    //            'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_').'_database_'),
-    //        ],
-    //
-    //        'default' => [
-    //            'url' => env('REDIS_URL'),
-    //            'host' => env('REDIS_HOST', '127.0.0.1'),
-    //            'password' => env('REDIS_PASSWORD', null),
-    //            'port' => env('REDIS_PORT', '6379'),
-    //            'database' => env('REDIS_DB', '0'),
-    //        ],
-    //
-    //        'cache' => [
-    //            'url' => env('REDIS_URL'),
-    //            'host' => env('REDIS_HOST', '127.0.0.1'),
-    //            'password' => env('REDIS_PASSWORD', null),
-    //            'port' => env('REDIS_PORT', '6379'),
-    //            'database' => env('REDIS_CACHE_DB', '1'),
-    //        ],
-    //
-    //    ],
 
     'redis' => [
-        'client' => 'predis',
-        'default' => [
-            'host' => env('REDIS_HOST', '127.0.0.1'),
-            'password' => env('REDIS_PASSWORD', null),
-            'port' => env('REDIS_PORT', 6379),
-            'database' => 0,
-        ],
+
+        'client' => env('REDIS_CLIENT', 'phpredis'),
+
         'options' => [
-            'parameters' => ['password' => env('REDIS_PASSWORD', null)],
+            'cluster' => env('REDIS_CLUSTER', 'redis'),
+            'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_').'_database_'),
         ],
+
+        'default' => [
+            'url' => env('REDIS_URL'),
+            'host' => env('REDIS_HOST', '127.0.0.1'),
+            'username' => env('REDIS_USERNAME'),
+            'password' => env('REDIS_PASSWORD'),
+            'port' => env('REDIS_PORT', '6379'),
+            'database' => env('REDIS_DB', '0'),
+        ],
+
+        'cache' => [
+            'url' => env('REDIS_URL'),
+            'host' => env('REDIS_HOST', '127.0.0.1'),
+            'username' => env('REDIS_USERNAME'),
+            'password' => env('REDIS_PASSWORD'),
+            'port' => env('REDIS_PORT', '6379'),
+            'database' => env('REDIS_CACHE_DB', '1'),
+        ],
+
     ],
 
 ];
-
