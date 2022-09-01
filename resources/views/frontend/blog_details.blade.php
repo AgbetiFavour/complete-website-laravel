@@ -61,7 +61,7 @@
                   
                 </li>
             </ul>
-            <ul class="blog__details__social">
+            {{-- <ul class="blog__details__social">
                 <li class="title">Share :</li>
                 <li class="social-icons">
                     <a href="#"><i class="fab fa-facebook"></i></a>
@@ -318,7 +318,7 @@
                     </div>
                 </div>
             </section>
-            <!-- contact-area-end -->
+            <!-- contact-area-end --> --}}
 
         </main>
 
